@@ -1,0 +1,322 @@
+/* ===============================
+   フォント / ベーススタイル
+================================ */
+@font-face {
+  font-family: 'MyFont';
+  src: url('./font/PixelMplus10-Regular.ttf') format('opentype');
+}
+
+body {
+  margin: 0;
+  background: #202830;
+  font-family: "MyFont", "游ゴシック体", system-ui, sans-serif;
+  color: #fff;
+}
+
+/* ===============================
+   レイアウト / コンテナ
+================================ */
+.battle-screen {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 450px;
+  margin: 40px auto;
+  padding: 20px;
+  box-sizing: border-box;
+  background: #283540;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 100px;
+}
+
+.enemy-area,
+.player-area {
+  width: 48%;
+}
+
+/* 下部エリア（メッセージ＋コマンド） */
+.bottom {
+  display: flex;
+  gap: 12px;
+  margin-top: 45px;
+}
+
+/* ===============================
+   ステータスボックス
+================================ */
+.status-box {
+  background: #101820;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 2px solid #ffffffaa;
+  font-size: 14px;
+}
+
+.name {
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.hp-label {
+  font-size: 12px;
+}
+
+.hp-gauge {
+  width: 100%;
+  height: 8px;
+  margin-top: 4px;
+  background: #444;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.hp-bar {
+  width: 100%;
+  height: 100%;
+  background: #5cff8d;
+  transition: width 0.3s;
+}
+
+/* 攻撃を受けた時に赤く点滅 */
+.hp-bar.damage {
+  background: #ff3b3b !important;
+  transition: none;
+}
+
+/* ===============================
+   スプライト / キャラ表示
+================================ */
+/* 位置基準ラッパー */
+.sprite-wrap {
+  position: relative;
+  width: 110px;
+  height: 110px;
+}
+
+/* キャラ背景（丸いプレート） */
+.sprite {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  font-size: 11px;
+  background: #3a4a5a;
+  border-radius: 999px;
+  opacity: 0.9;
+}
+
+/* キャラ画像（共通設定） */
+#playerSprite,
+#cpuSprite {
+  width: 110px;
+  height: 110px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  image-rendering: pixelated;
+  transition: transform 0.3s ease;
+}
+
+/* プレイヤー側 */
+#playerSprite {
+  background-image: url('../img/player.png');
+  transform: scaleX(-1) translateX(-30px) translateY(30px);
+}
+
+/* 敵側 */
+#cpuSprite {
+  background-image: url('../img/enemy.png');
+  transform: translateX(-40px) translateY(0px);
+}
+
+/* 足元の影（共通） */
+.sprite::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 80%;
+  height: 20px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0) 80%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ===============================
+   吹き出し
+================================ */
+.bubble {
+  position: absolute;
+  width: 35px;
+  padding: 10px 14px;
+  background: #101820;
+  border: 2px solid #ffffffaa;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: nowrap;
+  z-index: 5;
+}
+
+/* 自分側：右に出す */
+.bubble-right {
+  top: 25px;
+  left: calc(100% + 20px);
+}
+.bubble-right::after {
+  content: "";
+  position: absolute;
+  top: 16px;
+  left: -6px;
+  border: 6px solid transparent;
+  border-right-color: #ffffffaa;
+}
+.bubble-right::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  left: -4px;
+  border: 6px solid transparent;
+  border-right-color: #101820;
+}
+
+/* 敵側：左に出す */
+.bubble-left {
+  top: 5px;
+  right: calc(100% + 30px);
+}
+.bubble-left::after {
+  content: "";
+  position: absolute;
+  top: 16px;
+  right: -6px;
+  border: 6px solid transparent;
+  border-left-color: #ffffffaa;
+}
+.bubble-left::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  right: -4px;
+  border: 6px solid transparent;
+  border-left-color: #101820;
+}
+
+/* ===============================
+   メッセージ / コマンド
+================================ */
+.message-box {
+  display: flex;
+  flex: 2;
+  min-height: 56px;
+  padding: 10px;
+  background: #101820;
+  border-radius: 10px;
+  border: 2px solid #ffffffaa;
+  font-size: 14px;
+}
+
+.command-box {
+  display: grid;
+  flex: 1.3;
+  height: 150px;
+  padding: 10px;
+  box-sizing: border-box;
+  background: #101820;
+  border-radius: 10px;
+  border: 2px solid #ffffffaa;
+  grid-template-rows: repeat(3, 1fr); /* 常に3枠確保して位置固定 */
+  gap: 6px;
+  font-size: 14px;
+}
+
+/* 通常コマンド */
+.command {
+  padding: 6px 8px;
+  text-align: left;
+  border-radius: 8px;
+  border: 1px solid #ffffff66;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.1s, box-shadow 0.1s, background 0.1s;
+}
+
+.command:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+  background: #1d2733;
+}
+
+/* クリック不可の「にげちゃだめだ」 */
+#runBtn2 {
+  padding: 6px 8px;
+  text-align: left;
+  border-radius: 8px;
+  border: 1px solid #ffffff66;
+  cursor: default;
+  user-select: none;
+  text-decoration: line-through;
+}
+
+/* ===============================
+   ハート演出
+================================ */
+#heart {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  width: 32px;
+  height: 32px;
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+  image-rendering: pixelated;
+  transition: all 0.6s ease;
+  z-index: 999;
+}
+
+#heart.show {
+  opacity: 1;
+  transform: scale(1.2);
+  animation: heartFloat 1.6s ease-in-out forwards;
+}
+
+/* ハートがふわっと上に浮いて消える */
+@keyframes heartFloat {
+  0% {
+    transform: translateY(0) scale(1.2);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(-20px) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-30px) scale(1);
+    opacity: 1;
+  }
+}
+
+/* ===============================
+   共通ユーティリティ
+================================ */
+.hidden {
+  display: none;
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="./img/favicon.svg">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>じゃんけんバトル</title>
+</head>
+<body>
+
+<div class="battle-screen" id="battleScreen">
+  <!-- 上段：敵 -->
+  <div class="row">
+    <div class="enemy-area">
+      <div class="status-box">
+        <div class="name">あいつ</div>
+        <div class="hp-label">HP</div>
+        <div class="hp-gauge">
+          <div class="hp-bar" id="cpuHpBar"></div>
+        </div>
+      </div>
+    </div>
+    <div class="sprite-wrap">
+      <div class="sprite" id="cpuSprite"></div>
+      <img id="heart"  src="./img/heart.png" alt="heart">
+      <div class="bubble bubble-left hidden" id="cpuBubble"></div>
+    </div>
+  </div>
+
+  <!-- 中段：自分 -->
+  <div class="row">
+    <div class="sprite-wrap">
+      <div class="sprite" id="playerSprite"></div>
+      <div class="bubble bubble-right hidden" id="playerBubble"></div>
+    </div>
+    <div class="player-area">
+      <div class="status-box">
+        <div class="name">きみ</div>
+        <div class="hp-label">HP</div>
+        <div class="hp-gauge">
+          <div class="hp-bar" id="playerHpBar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 最初の「戦う／逃げる」画面 -->
+  <div class="bottom" id="firstMenuScreen">
+    <div class="message-box" id="firstMenuMessage">
+      あいつが あらわれた！
+    </div>
+    <div class="command-box">
+      <div class="command" id="fightBtn">▶ たたかう</div>
+      <div class="command" id="runBtn">▶ にげる</div>
+    </div>
+  </div>
+
+  <!-- 逃げた後の「やっぱり戦う」画面 -->
+  <div class="bottom hidden" id="secondMenuScreen">
+    <div class="message-box" id="secondMenuMessage">
+      ゆうきを だして！
+    </div>
+    <div class="command-box">
+      <div class="command" id="fightBtn2">▶ やっぱり たたかう</div>
+      <div id="runBtn2">▶ にげちゃだめだ</div>
+    </div>
+  </div>
+
+  <!-- 戦闘コマンド画面 -->
+  <div class="bottom hidden" id="commandScreen">
+    <div class="message-box" id="messageBox">
+      さぁ、どうする
+    </div>
+    <div class="command-box">
+      <div class="command" data-hand="0">▶ グー</div>
+      <div class="command" data-hand="1">▶ チョキ</div>
+      <div class="command" data-hand="2">▶ パー</div>
+    </div>
+  </div>
+
+  <!-- 勝利後の選択画面 -->
+  <div class="bottom hidden" id="postWinScreen">
+    <div class="message-box" id="postWinMessage">つよさは じゅうぶんに つたわった。</div>
+    <div class="command-box">
+      <div class="command" id="playAgainBtn">▶ もういちど たたかう</div>
+      <div class="command" id="noMoreFightBtn">▶ たたかわない</div>
+    </div>
+  </div>
+
+  <!-- 勝敗後の特別コマンド（負けたとき用） -->
+  <div class="bottom hidden" id="retryScreen">
+    <div class="message-box" id="retryMessage">
+      まだ おわりじゃない…！
+    </div>
+    <div class="command-box">
+      <div class="command" id="retryBtn">▶ たちあがる</div>
+    </div>
+  </div>
+</div>
+<script src="js/script.js"></script>
+</body>
+</html>
